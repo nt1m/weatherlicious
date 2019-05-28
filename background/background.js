@@ -23,13 +23,18 @@ async function getWeatherIcon() {
 }
 async function setTheme() {
   let icon = await getWeatherIcon();
+  let themeMode = await getSetting("theme-mode", "automatic");
+  if (themeMode != "automatic") {
+    icon = icon.replace(/(d|n)/g, themeMode);
+  }
+
   let theme = {
     images: {
       additional_backgrounds: [],
     },
     colors: {
-      accentcolor: "black",
-      textcolor: "white",
+      frame: "black",
+      tab_background_text: "white",
     },
     properties: {
       additional_backgrounds_tiling: ["no-repeat", "repeat-y"],
@@ -39,17 +44,17 @@ async function setTheme() {
 
   if (icon.endsWith("d")) {
     theme.colors = {
-      accentcolor: "#a1e1f2",
+      frame: "#a1e1f2",
       tab_line: "#0a84ff",
-      textcolor: "black",
+      tab_background_text: "black",
       toolbar_top_separator: "transparent"
     };
     theme.images.additional_backgrounds[1] = "gradients/day.png";
   } else {
     theme.colors = {
-      accentcolor: "#202340",
-      textcolor: "rgba(255,255,255,0.8)",
-      toolbar_text: "rgba(255,255,255,0.6)",
+      frame: "#202340",
+      tab_background_text: "rgba(255,255,255,0.8)",
+      bookmark_text: "rgba(255,255,255,0.6)",
       toolbar: "rgba(0,0,0,0.5)",
       toolbar_field: "rgba(255,255,255,0.2)",
       toolbar_field_text: "white",
@@ -106,15 +111,15 @@ async function setTheme() {
       theme.colors.tab_line = "#363959";
       theme.images.additional_backgrounds[0] = "icons/rainy.svg";
       if (icon.endsWith("d")) {
-        theme.colors.accentcolor = "#89bed0";
-        theme.colors.textcolor = "rgba(255,255,255,0.8)";
+        theme.colors.frame = "#89bed0";
+        theme.colors.tab_background_text = "rgba(255,255,255,0.8)";
         theme.colors.toolbar = "rgba(0,0,0,0.2)";
-        theme.colors.toolbar_text = "white";
+        theme.colors.bookmark_text = "white";
         theme.colors.toolbar_field = "rgba(0,0,0,0.1)";
         theme.colors.toolbar_field_text = "white";
         theme.images.additional_backgrounds[1] = "gradients/rainy.png";
       } else {
-        theme.colors.accentcolor = "#010d1c";
+        theme.colors.frame = "#010d1c";
         theme.colors.toolbar_field_border_focus = "#334a8a";
         theme.colors.popup_highlight = "#334a8a";
         theme.colors.sidebar_highlight = "#334a8a";
@@ -127,14 +132,14 @@ async function setTheme() {
     case "11n":
       // thunderstorm
       if (icon.endsWith("d")) {
-        theme.colors.accentcolor = "#89bed0";
+        theme.colors.frame = "#89bed0";
       }
       theme.colors.tab_line = "#363959";
       theme.colors.toolbar_field_border_focus = "#334a8a";
       theme.colors.popup_highlight = "#334a8a";
       theme.colors.sidebar_highlight = "#334a8a";
       theme.colors.toolbar = "rgba(0,0,0,0.2)";
-      theme.colors.toolbar_text = "white";
+      theme.colors.bookmark_text = "white";
       theme.colors.toolbar_field = "rgba(0,0,0,0.1)";
       theme.colors.toolbar_field_text = "white";
       theme.images.additional_backgrounds[0] = "icons/stormy.svg";
@@ -148,7 +153,7 @@ async function setTheme() {
       theme.colors.popup_highlight = "#334a8a";
       theme.colors.sidebar_highlight = "#334a8a";
       theme.colors.toolbar = "rgba(0,0,0,0.2)";
-      theme.colors.toolbar_text = "white";
+      theme.colors.bookmark_text = "white";
       theme.colors.toolbar_field = "rgba(0,0,0,0.1)";
       theme.colors.toolbar_field_text = "white";
       theme.images.additional_backgrounds[1] = "gradients/mist-storm.png";
@@ -158,11 +163,11 @@ async function setTheme() {
     case "50n":
       // mist
       if (icon.endsWith("d")) {
-        theme.colors.accentcolor = "#bfcfde";
+        theme.colors.frame = "#bfcfde";
       }
 
       theme.colors.toolbar = "rgba(0,0,0,0.2)";
-      theme.colors.toolbar_text = "white";
+      theme.colors.bookmark_text = "white";
       theme.colors.toolbar_field = "rgba(255,255,255,0.1)";
       theme.colors.tab_line = "#10293d";
       theme.colors.toolbar_field_border_focus = "#10293d";
@@ -184,6 +189,10 @@ browser.runtime.onMessage.addListener(async (message) => {
   switch (message.type) {
     case "city":
       await setSetting("city", message.value);
+      await setTheme();
+      break;
+    case "theme-mode":
+      await setSetting("theme-mode", message.value);
       await setTheme();
       break;
   }

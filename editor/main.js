@@ -12,6 +12,14 @@ async function setupEditor() {
       value: $("#city").value,
     });
   });
+
+  $("#theme-mode").value = await getSetting("theme-mode", "automatic");
+  $("#theme-mode").addEventListener("change", function() {
+    browser.runtime.sendMessage({
+      type: "theme-mode",
+      value: $("#theme-mode").value,
+    });
+  });
 }
 
 window.onload = setupEditor;
