@@ -53,11 +53,22 @@ async function setTheme() {
       toolbar: "rgba(0,0,0,0.5)",
       toolbar_field: "rgba(255,255,255,0.2)",
       toolbar_field_text: "white",
+      toolbar_field_border_focus: "#8a0060",
       tab_line: "#b5007f",
-      popup: "#101120",
+      popup: "#0d172b",
       popup_text: "rgba(255,255,255,0.8)",
       popup_border: "rgba(255,255,255,0.2)",
-      toolbar_top_separator: "transparent"
+      popup_highlight: "#8a0060",
+      popup_highlight_text: "#fff",
+      sidebar: "#0d172b",
+      sidebar_text: "rgba(255,255,255,0.8)",
+      sidebar_border: "rgb(38,47,65)",
+      sidebar_highlight: "#8a0060",
+      sidebar_highlight_text: "#fff",
+      ntp_background: "#101120",
+      ntp_text: "rgba(255,255,255,0.8)",
+      toolbar_top_separator: "transparent",
+      toolbar_bottom_separator: "rgba(255,255,255,0.05)",
     };
   }
 
@@ -104,6 +115,9 @@ async function setTheme() {
         theme.images.additional_backgrounds[1] = "gradients/rainy.png";
       } else {
         theme.colors.accentcolor = "#010d1c";
+        theme.colors.toolbar_field_border_focus = "#334a8a";
+        theme.colors.popup_highlight = "#334a8a";
+        theme.colors.sidebar_highlight = "#334a8a";
         theme.colors.toolbar = "rgba(200,200,255,0.2)";
         theme.colors.toolbar_field = "rgba(255,255,255,0.1)";
         theme.images.additional_backgrounds[1] = "gradients/rainy-night.png";
@@ -116,6 +130,9 @@ async function setTheme() {
         theme.colors.accentcolor = "#89bed0";
       }
       theme.colors.tab_line = "#363959";
+      theme.colors.toolbar_field_border_focus = "#334a8a";
+      theme.colors.popup_highlight = "#334a8a";
+      theme.colors.sidebar_highlight = "#334a8a";
       theme.colors.toolbar = "rgba(0,0,0,0.2)";
       theme.colors.toolbar_text = "white";
       theme.colors.toolbar_field = "rgba(0,0,0,0.1)";
@@ -127,6 +144,9 @@ async function setTheme() {
     case "13n":
       // snow
       theme.colors.tab_line = "#363959";
+      theme.colors.toolbar_field_border_focus = "#334a8a";
+      theme.colors.popup_highlight = "#334a8a";
+      theme.colors.sidebar_highlight = "#334a8a";
       theme.colors.toolbar = "rgba(0,0,0,0.2)";
       theme.colors.toolbar_text = "white";
       theme.colors.toolbar_field = "rgba(0,0,0,0.1)";
@@ -145,6 +165,9 @@ async function setTheme() {
       theme.colors.toolbar_text = "white";
       theme.colors.toolbar_field = "rgba(255,255,255,0.1)";
       theme.colors.tab_line = "#10293d";
+      theme.colors.toolbar_field_border_focus = "#10293d";
+      theme.colors.popup_highlight = "#10293d";
+      theme.colors.sidebar_highlight = "#10293d";
       theme.images.additional_backgrounds[0] = "icons/cloudy.svg";
       theme.images.additional_backgrounds[1] = "gradients/mist-storm.png";
       break;
